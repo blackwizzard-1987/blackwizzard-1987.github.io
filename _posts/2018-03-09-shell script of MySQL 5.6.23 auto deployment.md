@@ -219,7 +219,7 @@ fi
 ```
 ```
 ENDTIME=`date "+%F %H:%M:%S"`
-echo "Complete MySQL installation at $STARTTIME"
+echo "Complete MySQL installation at $ENDTIME"
 ```
 ```
 exit 0 
