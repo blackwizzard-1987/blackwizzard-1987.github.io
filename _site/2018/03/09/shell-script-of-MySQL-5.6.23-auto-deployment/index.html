@@ -177,7 +177,7 @@
                     <h1>shell script of MySQL 5.6.23 auto deployment</h1>
                     
                     
-                    <h2 class="subheading">deploy Mysql with version 5.6.23 as root user in AWS EC environment</h2>
+                    <h2 class="subheading">deploy MySQL with version 5.6.23 as root user in AWS EC environment</h2>
                     
                     <span class="meta">Posted by RC on March 9, 2018</span>
                 </div>
@@ -198,44 +198,54 @@
                 post-container">
 
 				<blockquote>
-  <p>a simple case of one-click MySQL installation in AWS EC environment</p>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash -x</span>
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>############################################################################
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#       Name:           MySQL_auto_deployment.sh
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#       Location:
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#       Function:       Deploy MySQL automatically
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#       Author:         Cheng Ran
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#       Create Date:    2018/01/16
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#	Modify Date:	2018/03/08
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#############################################################################
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#check if executor is root
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>USER_ID=`id | awk -F '(' '{print $1}' | awk -F '=' '{print $2}'`
+  <p>This is a simple case of one-click MySQL installation in AWS EC environment</p>
+</blockquote>
+
+<h5 id="please-notice-that"><strong>Please notice that</strong>:</h5>
+<p>1.In my case, the instances’ name begin with ecX-XX(as PROD), with ecXd/t-XX(as DEV)</p>
+
+<p>2.After MySQL is online, you should set the root user’s PW and check the error log</p>
+
+<p>3.The version of MySQL can be changed if needed</p>
+
+<h5 id="script-content"><strong>Script content</strong>:</h5>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash -x</span>
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>############################################################################
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#       Name:           MySQL_auto_deployment.sh
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#       Location:
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#       Function:       Deploy MySQL automatically
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#       Author:         Cheng Ran
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#       Create Date:    2018/01/16
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#	Modify Date:	2018/03/08
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#############################################################################
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#check if executor is root
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>USER_ID=`id | awk -F '(' '{print $1}' | awk -F '=' '{print $2}'`
 if [ $USER_ID != 0 ]; then
 echo 'Script is interrupted because the executor is not root user!'
 exit 1
 fi
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#check if disk space under /data/01 is enough
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DISK_USE=`df -h | grep /data/01 | head -n 1 | awk -F ' ' '{print $5}' | awk -F '%' '{print $1}'`
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#check if disk space under /data/01 is enough
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DISK_USE=`df -h | grep /data/01 | head -n 1 | awk -F ' ' '{print $5}' | awk -F '%' '{print $1}'`
 if [ $DISK_USE -ge 90 ]; then 
 echo 'The disk space under /data/01 is not enough!'
 exit 1
 fi
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#check if MySQL is already running
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PID1=`ps -ef|grep mysqld | grep -v grep | sed -n "1p" | awk -F ' ' '{print $2}'`
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#check if MySQL is already running
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PID1=`ps -ef|grep mysqld | grep -v grep | sed -n "1p" | awk -F ' ' '{print $2}'`
 if [ -z $PID1 ]; then
 	STARTTIME=`date "+%F %H:%M:%S"`
 	echo "Staring depoly MySQL at $STARTTIME"
@@ -243,10 +253,10 @@ else
 	echo 'MySQL is already running on this server!'
 	exit 1
 fi
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#check instance environment is DEV/STAGE or PROD
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NAME_FLAG=`hostname -f | awk -F '-' '{print $1}'`
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#check instance environment is DEV/STAGE or PROD
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NAME_FLAG=`hostname -f | awk -F '-' '{print $1}'`
 LENGTH=`echo $NAME_FLAG | wc -L`
 if [ $LENGTH == 4 ]; then
 ENV='DEV'
@@ -254,10 +264,10 @@ fi
 if [ $LENGTH == 3 ]; then
 ENV='PROD'
 fi 
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#download from httpd @ ec2t-dbaadmin-01 or ec2-dbaadmin-03
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /usr/local/
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#download from httpd @ ec2t-dbaadmin-01 or ec2-dbaadmin-03
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /usr/local/
 if [ $ENV == 'DEV' ]; then
 wget http://yourdevadminserverIP/MySQL/mysql-5.6.23-linux-glibc2.5-x86_64.tar.gz
 	if [ $? -ne 0 ];then
@@ -272,30 +282,30 @@ wget http://yourprodadminserverIP/MySQL/mysql-5.6.23-linux-glibc2.5-x86_64.tar.g
 		exit 1
 	fi
 fi
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Create user and directory, then decompress tar pakage
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export GID=`expr substr "$(id mysqladmin | awk -F '=' '{print $3}')" 1 3`
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Create user and directory, then decompress tar pakage
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export GID=`expr substr "$(id mysqladmin | awk -F '=' '{print $3}')" 1 3`
 if [ $GID == 101 ]; then
 	tar -xvzf mysql-5.6.23-linux-glibc2.5-x86_64.tar.gz
 	mv mysql-5.6.23-linux-glibc2.5-x86_64 mysql
 	chown mysqladmin:dba /usr/local/mysql
 fi
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if [ $GID != 101 ]; then
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if [ $GID != 101 ]; then
 	tar -xvzf mysql-5.6.23-linux-glibc2.5-x86_64.tar.gz
 	mv mysql-5.6.23-linux-glibc2.5-x86_64 mysql
 	groupadd -g 101 dba
 	useradd -u 514 -g dba -G root -d /usr/local/mysql mysqladmin
 fi
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#copy files under /etc/skel for user mysqladmin 
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp /etc/skel/.* /usr/local/mysql
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#create my.cnf under /etc/
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /etc/
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#copy files under /etc/skel for user mysqladmin 
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp /etc/skel/.* /usr/local/mysql
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#create my.cnf under /etc/
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /etc/
 rm -rf /etc/my.cnf*
 if [ $ENV == 'DEV' ]; then
 wget http://yourdevadminserverip/MySQL/my.cnf
@@ -311,34 +321,34 @@ wget http://yourprodadminserverip/MySQL/my.cnf
 		exit 1
 	fi
 fi
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chmod 640 /etc/my.cnf
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chown mysqladmin:dba /etc/my.cnf
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#create directory arch and backup, then install mysql
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chown mysqladmin:dba /usr/local/mysql/*
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chmod 640 /etc/my.cnf
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chown mysqladmin:dba /etc/my.cnf
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#create directory arch and backup, then install mysql
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chown mysqladmin:dba /usr/local/mysql/*
 su - mysqladmin -c "cd /usr/local/mysql;mkdir arch backup"
 su - mysqladmin -c "cd /usr/local/mysql/scripts;./mysql_install_db  --user=mysqladmin --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data"
 if [ $? -ne 0 ];then
 		echo 'An error occured when installing MySQL, please check!'
 		exit 1
 fi
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#configure mysql auto reboot
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /usr/local/mysql
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#configure mysql auto reboot
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /usr/local/mysql
 cp support-files/mysql.server /etc/rc.d/init.d/mysql
 chmod +x /etc/rc.d/init.d/mysql
 chkconfig --del mysql
 chkconfig --add mysql
 chkconfig --level 345 mysql on
 echo "su - mysqladmin -c \"/etc/init.d/mysql start --federated\"" &gt;&gt; /etc/rc.local
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#start mysql service and check 
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>su - mysqladmin -c "cd /usr/local/mysql/bin;./mysqld_safe &amp;"
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#start mysql service and check 
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>su - mysqladmin -c "cd /usr/local/mysql/bin;./mysqld_safe &amp;"
 sleep 60
 echo -e "\n"
 echo -e "\n"
@@ -369,13 +379,14 @@ else
 		exit 1
 	fi
 fi
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ENDTIME=`date "+%F %H:%M:%S"`
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ENDTIME=`date "+%F %H:%M:%S"`
 echo "Complete MySQL installation at $ENDTIME"
-</code></pre></div>  </div>
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>exit 0 
-</code></pre></div>  </div>
-</blockquote>
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>exit 0 
+</code></pre></div></div>
+
+<h5 id="you-can-get-sh-type-directly-from-my-repository">You can get .sh type directly from: <a href="https://github.com/blackwizzard-1987/blackwizzard-1987.github.io">my repository</a></h5>
 
 
 
