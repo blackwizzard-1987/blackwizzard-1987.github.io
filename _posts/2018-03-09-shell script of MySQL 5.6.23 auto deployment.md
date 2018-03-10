@@ -234,7 +234,7 @@ echo "Complete MySQL installation at $ENDTIME"
 exit 0 
 ```
 
-##### You can get .sh type directly from: [my repository](https://github.com/blackwizzard-1987/blackwizzard-1987.github.io)
+##### You can get .sh type directly from: [my repository](https://github.com/blackwizzard-1987/scripts)
 
 
 
