@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      restoring a snapshot into a new cluster
+title:      Restoring a Snapshot into a New Cluster
 subtitle:  	use daily backup snapshots to restore into a new Cassandra cluster
 date:       2018-03-23
 author:     RC

@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      communication is quite important
+title:      Communication Is Quite Important
 subtitle:  	communication is important all the time, if you ignore it or despise it, you may turn a nice thing into a "extremely bad thing" in a certain situation.
 date:       2018-04-03
 author:     RC

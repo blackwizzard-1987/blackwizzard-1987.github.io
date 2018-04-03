@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      shell script of MySQL 5.6.23 auto deployment
+title:      Shell Script of MySQL 5.6.23 Auto Deployment
 subtitle:  	deploy MySQL with version 5.6.23 as root user in AWS EC environment 
 date:       2018-03-09
 author:     RC
