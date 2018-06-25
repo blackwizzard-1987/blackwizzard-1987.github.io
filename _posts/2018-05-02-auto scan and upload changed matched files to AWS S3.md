@@ -66,7 +66,6 @@ sed -i "s/'/\\\\'\\\/g" ${LOG_PATH}/filer_special_symbol.log
 line=`cat ${LOG_PATH}/filer_special_symbol.log`
 ```
 
-
-
+### You can get .sh type directly from: [my repository](https://github.com/blackwizzard-1987/scripts)
 
 
