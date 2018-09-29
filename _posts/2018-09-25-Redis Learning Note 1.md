@@ -289,7 +289,7 @@ slaveof <masterip> <masterport>
 $ ./redis-cli 
 127.0.0.1:6379> dbsize
 (integer) 2
-127.0.0.1:6379> slaveof 172.16.101.56 6379
+127.0.0.1:6379> slaveof xx.xx.xx.56 6379
 OK
 127.0.0.1:6379> dbsize
 (integer) 16
@@ -545,7 +545,7 @@ b. About slave
 2)  1) "name"
     2) "xx.xx.xx.56:6379"
     3) "ip"
-    4) "172.16.101.56"
+    4) "xx.xx.xx.56"
     5) "port"
     6) "6379"
     7) "runid"
