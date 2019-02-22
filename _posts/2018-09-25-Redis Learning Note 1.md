@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Redis Learning Note 1
+title:      Redis Learning Note Ⅰ
 subtitle:  	Redis install and configure, analysis data types of Redis, backup and restore, master-slave relationship, Redis Sentinel failover 
 date:       2018-09-25
 author:     RC
