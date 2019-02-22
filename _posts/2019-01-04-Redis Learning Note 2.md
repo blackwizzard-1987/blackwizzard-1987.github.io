@@ -378,7 +378,7 @@ The following migration process is shown as using manual commands in a demonstra
 ##### 7.8.1.3.1 Create keys in the same slot
 ```
 $ 127.0.0.1:6379> set key:{test}:111 value:test:111
-(error) MOVED 6918 172.16.101.59:6380
+(error) MOVED 6918 xx.xx.xx.59:6380
 $ 127.0.0.1:6380> set key:{test}:111 value:test:111
 OK
 $ 127.0.0.1:6380> set key:{test}:222 value:test:222
@@ -447,7 +447,7 @@ OK
 d. In source node 6380, check state of slot 6918
 ```
 $ 127.0.0.1:6380> cluster nodes
-10e2fb1a85a4f5c4105261c9a6b79f2eb4e8ece8 172.16.101.59:6380 myself,master - 0 0 1 connected 5462-10922 [6918->-295515759659c9e2b4d64d885982dd832730a454]
+10e2fb1a85a4f5c4105261c9a6b79f2eb4e8ece8 xx.xx.xx.59:6380 myself,master - 0 0 1 connected 5462-10922 [6918->-295515759659c9e2b4d64d885982dd832730a454]
 ```
 e. Get keys in slot 6918 in batch 
 ```
@@ -473,7 +473,7 @@ OK
 f. check if keys still exist in node 6380 
 ```
 $ 127.0.0.1:6380> mget key:{test}:111 key:{test}:222 key:{test}:333 test
-(error) ASK 6918 172.16.101.59:6385
+(error) ASK 6918 xx.xx.xx.59:6385
 ```
 g. Broadcast new slot info to all nodes in cluster
 ```
@@ -496,7 +496,7 @@ and 6918 has been responsible for 6385 nodes now.</span>
 $ 127.0.0.1:6386> CLUSTER REPLICATE 295515759659c9e2b4d64d885982dd832730a454
 OK
 $ 127.0.0.1:6386> cluster nodes
-f56fc18ef1df218cf24dce937e8097b8ab6c9684 172.16.101.58:6386 myself,slave 295515759659c9e2b4d64d885982dd832730a454 0 0 0 connected
+f56fc18ef1df218cf24dce937e8097b8ab6c9684 xx.xx.xx.58:6386 myself,slave 295515759659c9e2b4d64d885982dd832730a454 0 0 0 connected
 ```
 <span style="color:red;">// Now we have completed the expand of Redis cluster, the new relationship is in the following chart:</span>
 ![2](https://i.postimg.cc/J0c0FYZ6/image.png)
@@ -580,7 +580,7 @@ Do you want to proceed with the proposed reshard plan (yes/no)? yes
 
 <span style="color:red;">//Whether the new fragmentation plan implemented immediately</span>
 
-Moving slot 6918 from 127.0.0.1:6385 to 172.16.101.59:6380: ...
+Moving slot 6918 from 127.0.0.1:6385 to xx.xx.xx.59:6380: ...
 
 Check results on node 6380:
 ```
