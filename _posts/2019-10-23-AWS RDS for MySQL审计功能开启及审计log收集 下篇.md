@@ -30,7 +30,7 @@ tags:
 最终以此循环来记录CONNECT,QUERY的event信息
 ```
 该过程用图来表示如下：
-![1](https://i.postimg.cc/zBCcskSf/rotate.png)
+![1](https://i.postimg.cc/vmfGSp3P/rotate.png)
 
 #### 审计log收集方案·改
 在上篇中我们因为不能用access_key和secret_key所以选择了一个折中的缓解方案。

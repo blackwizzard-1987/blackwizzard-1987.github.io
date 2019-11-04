@@ -115,7 +115,7 @@ MemtablePostFlusher               0         0         139417         0          
 这种情况一般是呈spike状出现的，意味着集群的node数量不够或者系统参数没有调好，现在是美国凌晨的低峰期，而且这个情况之前几乎没有遇到过，显然不是这两者的问题。
 
 到下午6点多钟，当集群的daily备份在DC-US-SJC中心的ec3-usercassandra-01上完成之后，此时Pending状态的ReadStage线程已经到了3W6+:
-![1](https://i.postimg.cc/CKBS3Yms/QQ-20191029192620.jpg)
+![1](https://i.postimg.cc/q7L5RwRJ/block-Read-thread.jpg)
 这时已经是美国时间凌晨3点多，美国那边的Cassandra owner的On call虽然是可用的，但是我还是**执行了问题节点的重启**。
 
 重启之后节点一切恢复正常，应该是虚惊一场了。
