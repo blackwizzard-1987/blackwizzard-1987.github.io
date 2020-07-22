@@ -90,14 +90,14 @@ alter table gap_lock add index idx_gap_lock_number(number);
 ### 4.2 几个测试例子
 
 Session1:
-![1](https://postimg.cc/B89Csgj0)
+![1](https://i.postimg.cc/mrhpYpRt/1.png)
 
 Session2：
-![1](https://postimg.cc/QV4kVsFS)
+![1](https://i.postimg.cc/L6RyC82d/2.png)
 
 说明：
 where条件指定了number=4，则此例中间隙锁的范围为
-![1](https://postimg.cc/34LpyCxW)
+![1](https://i.postimg.cc/J08Q2pw3/3.png)
 
 记录（2,4）在记录（1,2）和（3,4）之间，因此阻塞
 记录（2,2）在记录（1,2）和（3,4）之间，因此阻塞
@@ -106,14 +106,14 @@ where条件指定了number=4，则此例中间隙锁的范围为
 记录（7,5）在记录（6,5）和（8,5）之间，因此执行成功
 
 Session1：
-![1](https://postimg.cc/TyfWCHyp)
+![1](https://i.postimg.cc/yNSX6MsX/4.png)
 
 Session2：
-![1](https://postimg.cc/TKXy3HJC)
+![1](https://i.postimg.cc/2S1nTsbR/5.png)
 
 说明: 
 where条件指定了number=5，则此例中间隙锁的范围为
-![1](https://postimg.cc/GTy2ckBW)
+![1](https://i.postimg.cc/qqmCxwpv/6.png)
 
 记录(9,12)在记录（13,11）之后，因此执行成功
 记录(12,11)在记录（10，5）和（13,11）之间，因此阻塞
