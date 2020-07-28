@@ -19,7 +19,7 @@ tags:
 ## 2.问题现象
 
 我们用MySQL来模拟一下这个问题，假设该表的内容如下：
-![1](https://i.postimg.cc/vmtkg58B/1.png)
+![1](https://i.postimg.cc/y62KzXD4/Screenshot-1.jpg)
 
 查询SQL为：
 
@@ -28,7 +28,7 @@ select * from or_and where num <> 4 or num =3 and num <> 1;
 ```
 
 结果为：
-![1](https://i.postimg.cc/636SdTTh/2.png)
+![1](https://i.postimg.cc/wv3CC7Hj/Screenshot-2.jpg)
 
 显然与我们想要的满足条件1：**num <> 4 or num =3**
 和条件2：**num <> 1**的结果不同
@@ -51,4 +51,4 @@ select * from or_and where (num <> 4 or num =3) and num <> 1;
 ```
 
 结果：
-![1](https://i.postimg.cc/zv6cZj7d/3.png)
+![1](https://i.postimg.cc/XJhR447c/Screenshot-3.jpg)
