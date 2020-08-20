@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      SQL Server统计信息理解.md
+title:      SQL Server统计信息理解
 subtitle:  	
 date:       2020-05-01
 author:     RC
