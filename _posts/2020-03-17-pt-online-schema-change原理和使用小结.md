@@ -215,9 +215,15 @@ lock_wait_timeout即获取到MDL锁之前，最多等待的时间，可以认为
 
 和5.6开始的MySQL原生DDL相比，
 online ddl在必须copy（rebuild）table时成本较高，不宜采用（如添加/删除列，更改列属性，更改列顺序等）
+
 pt-osc工具在存在触发器时，不适用
+
 修改索引、外键、列名时，优先采用online ddl，并指定 ALGORITHM=INPLACE
+
 其它情况使用pt-osc，虽然存在copy data
+
 pt-osc比online ddl要慢一倍左右，因为它是根据负载调整的
+
 无论哪种方式都选择的业务低峰期执行
+
 特殊情况需要利用主从特性，先alter从库，主备切换，再改原主库
