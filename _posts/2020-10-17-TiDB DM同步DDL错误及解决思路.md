@@ -36,9 +36,10 @@ query-status worker-task-name
 1.DM的这个worker任务确实不工作了，同步状态为Paused
 
 2.造成中断的原因是DDL语句无法在tidb中回放，错误信息为：
+
 Error 8200: Unsupported modify column: type json not match origin varchar(300)
 
-3.中断处的binlog信息binlog|000002.000038:271519382
+3.中断处的binlog信息binlog000002.000038:271519382
 
 这个DDL语句显然是之前在上游MySQL执行的将字段从varchar改成json的操作，本质应该是charset 的变换，而tidb本身是支持json格式的，那么解决问题的思路就很简单了：
 
