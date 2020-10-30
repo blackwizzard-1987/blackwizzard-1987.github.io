@@ -79,3 +79,34 @@ select goods_content from goods order by create_time desc;
 ![1](https://i.postimg.cc/rF159KH2/3.png)
 
 可以看到worker状态已变为running，binlog位置不断变化，该表的字段新增值入表正常，问题解决。
+
+10月30日新增：
+
+跳过MySQL event/procedure等相关DDL错误的方法：
+
+在worker的配置文件中加入过滤条件：
+
+```html
+mysql-instances:
+-
+  source-id: "下游slave名字"
+  black-white-list: "global"
+  mydumper-config-name: "global"
+  filter-rules: ["rule-1"] 
+
+filters:
+  rule-1:
+    schema-pattern: "*"
+    sql-pattern: ["^DROP\\s+EVENT", "^ALTER\\s+EVENT", "^CREATE\\s+EVENT", "^CREATE\\s+DEFINER", "^ALTER\\s+DEFINER", "^DROP\\s+DEFINER"]
+    action: Ignore
+```
+
+加入后需要重启worker任务加载配置文件生效：
+
+```html
+stop-task worker_task_name
+start-task /home/tidb/dm-ansible/conf/worker_task_name.yaml
+query-status worker_task_name
+```
+
+无论是已经报错还是即将执行这些DDL，均会被过滤掉，并且不影响正常同步，其他条件的SQL规则同理。
