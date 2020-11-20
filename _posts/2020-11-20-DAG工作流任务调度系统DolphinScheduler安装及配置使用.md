@@ -35,10 +35,13 @@ Apache DolphinScheduler（incubating)(简称 DS) 是一个Apache孵化器项目�
 ## 2.1 安装Hadoop的需求
 
 Hadoop是选装，选装，选装
+
 ①如果装了hadoop，可以使用hdfs存储上传的资源
+
 ②可以使用yarn cluster/client的方式来提交spark任务
 
 因为我们使用的是spark的standalone模式，且考虑到tispark不需要额外的比较重的hadoop配置来帮助资源调度，因此对于①和②的解决方法如下：
+
 ①使用linux的文件系统来替代hdfs用于资源的上传和存储，配置如下：
 
 ```html
