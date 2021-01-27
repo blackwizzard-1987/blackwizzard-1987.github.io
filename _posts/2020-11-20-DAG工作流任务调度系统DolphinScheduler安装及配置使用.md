@@ -94,6 +94,25 @@ DS关于zookeeper的配置
 zkQuorum="172.xx.xx.75:2181,172.xx.xx.77:2181,172.xx.xx.78:2181"
 ```
 
+如果为单机伪集群部署，需要创建3个zoo.cfg文件
+
+更改内容:
+
+```html
+clientPort=2181为2181~2183
+server.1=172.xx.xx.80:2188:6001
+server.2=172.xx.xx.80:2189:6002
+server.3=172.xx.xx.80:2190:6003
+```
+
+之后，依次启动sh zkServer.sh ../conf/zoo1.cfg~ zoo2.cfg
+
+DS中zkQuorum配置改为：
+
+```html
+zkQuorum="172.xx.xx.80:2181,1172.xx.xx.80:2182, 172.xx.xx.80:2183"
+```
+
 ## 2.3 邮箱的配置
 
 因为广州机房的机器无法连接外网，所以需要借助上海机房的邮件服务器的配置
@@ -134,3 +153,91 @@ mailUser是mtp-auth-user，mailPassword是smtp-auth-password
 $ sh /opt/dolphinscheduler/dolphinscheduler-1.3.3/bin/stop-all.sh
 $ sh /opt/dolphinscheduler/dolphinscheduler-1.3.3/install.sh
 ```
+
+## 2.5 UI-Nginx配置(低于1.3.4版本)
+
+UI包直接解压
+
+如果有外网，直接通过install-dolphinscheduler-ui.sh安装，然后配置/etc/nginx/ nginx.conf
+
+如果是内网，需要源码编译安装nginx，然后配置nginx.conf
+
+nginx.conf配置如下：
+
+```html
+#user  nobody;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+	server {
+    listen       8888;# 访问端口(自行修改)
+    server_name  localhost;
+
+    #charset koi8-r;
+
+    #access_log  /var/log/nginx/host.access.log  main;
+
+    location / {
+        root   /opt/dolphinscheduler-ui/dist;      # 前端解压的dist目录地址(自行修改)
+        index  index.html index.html;
+    }
+    location /dolphinscheduler {
+        proxy_pass http://localhost:12345;    # 接口地址(自行修改)
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header x_real_ipP $remote_addr;
+        proxy_set_header remote_addr $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_http_version 1.1;
+        proxy_connect_timeout 4s;
+        proxy_read_timeout 30s;
+        proxy_send_timeout 12s;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+    #error_page  404              /404.html;
+    # redirect server error pages to the static page /50x.html
+																				
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
+}
+```
+
+注意修改dist目录地址，并且接口地址需要为localhost
+
+之后，重启DS服务和Nginx，观察12345和8888端口是否已经监听
+
+
