@@ -246,6 +246,6 @@ http {
 解压datax安装包，保持路径与DS配置路径一致即可
 
 ```html
-vim /opt/dolphinscheduler/dolphinscheduler-1.3.3/conf/env
+vim /opt/dolphinscheduler/dolphinscheduler-1.3.3/conf/env/dolphinscheduler_env.sh
 export DATAX_HOME=/opt/datax/bin/datax.py
 ```
