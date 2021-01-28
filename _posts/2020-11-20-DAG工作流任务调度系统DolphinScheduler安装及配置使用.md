@@ -241,3 +241,11 @@ http {
 之后，重启DS服务和Nginx，观察12345和8888端口是否已经监听
 
 
+## 2.6 Datax配置
+
+解压datax安装包，保持路径与DS配置路径一致即可
+
+```html
+vim /opt/dolphinscheduler/dolphinscheduler-1.3.3/conf/env
+export DATAX_HOME=/opt/datax/bin/datax.py
+```
