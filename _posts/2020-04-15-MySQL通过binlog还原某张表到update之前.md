@@ -77,6 +77,7 @@ Update的条数共计1713条
 mysqlbinlog --no-defaults -vv --base64-output=decode-rows binlog.000360 --start-datetime='2020-04-10 00:00:00' | grep -i -C 10 'UPDATE `***`.`***`'
 ```
 得到时间点2之前最后更改该表的事务的pos N
+start datetime需要以备份完成时间为准，即解压后文件中xtrabackupinfo的生成时间
 
 然后，将这段binlog转为SQL
 ```html
