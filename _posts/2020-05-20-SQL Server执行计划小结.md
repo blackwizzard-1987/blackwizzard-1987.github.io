@@ -22,7 +22,7 @@ tags:
 
 - (non)clustered index seek：(非)聚集索引查找，扫描聚集索引中特定范围的行 = range
 
-- index seek + Key Lookup：二级索引扫描找到所在行，之后回表拿其他字段，学名书签查找 = ref？
+- index seek + Key Lookup：二级索引扫描找到所在行，之后回表拿其他字段，学名书签查找 = ref
 
 > 当基本表为堆表，则key变为RID Lookup; 当返回行数较多时，退化为索引全表扫描
 
@@ -39,11 +39,13 @@ tags:
 ## 2.多表查询
 
 - Nested Loops： 块/索引嵌套循环，外部输入=驱动表，内部查询=被驱动表，一般驱动表较小时选择 
+
 计划图中，上面的为驱动表，下面的为被驱动表
 
 - Merge Join：合并连接，两张表均只扫描一次，要求双方数据有序，且on条件为=
 
 - Hash Join： 哈希连接/散列连接，适用于两张表都较大的场景
+
 通过选取较小表生成内存中的hash table，然后用较大表进行探测probe，找到匹配的行
 
 > Hash Table：通过hashing处理，把数据以key/value的形式存储在表格中，在数据库中它被放在tempdb中; 通过Join Key在内存中建立
