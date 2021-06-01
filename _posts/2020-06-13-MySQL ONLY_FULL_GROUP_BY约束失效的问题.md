@@ -92,11 +92,11 @@ refer to nonaggregated columns that are neither named in the GROUP BY clause nor
 比如，将group by 换成一个普通的字段c.`address`：
 
 ```html
-c.name  c.address
-1					111
-2					111
-3				    111
-4					222
+c.name    c.address
+1         111
+2         111
+3         111
+4         222
 ```
 
 此时，如果按address进行分组，那么c.name = 1-3的为一组，当查询这一组的c.name时，根本无法确定结果，因此语法错误
@@ -149,8 +149,12 @@ is invalid in the select list because it is not contained in either an aggregate
 即5.7.5之前使用的是SQL-92标准，之后使用了SQL: 1999标准，因此容许了满足唯一确定这一条件的group by的执行，即使它们'看上去'	并不符合标准语法
 
 > 冷知识：蓝色巨人IBM对关系数据库以及SQL语言的形成和规范化产生了重大的影响，第一个版本的SQL标准SQL86就是基于System R的手册而来的。
-对SQL标准影响最大的机构自然是那些著名的数据库产商，而具体的制订者则是一些非营利机构，例如国际标准化组织ISO、美国国家标准委员会ANSI等。
-目前最新的SQL标准是SQL: 2016
+
+> 对SQL标准影响最大的机构自然是那些著名的数据库产商，而具体的制订者则是一些非营利机构，例如国际标准化组织ISO、美国国家标准委员会ANSI等。
+
+> 目前最新的SQL标准是SQL: 2016
+
+> 其中，大多数数据库产品囿于设计可能只能满足90%的某个SQL标准
 
 ## 结论
 
