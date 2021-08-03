@@ -283,6 +283,8 @@ LOAD DATA LOCAL INFILE '/opt/undrop-for-innodb-develop/dumps/default/test' REPLA
 
 ### 参考
 
+[工具官网](https://github.com/twindb/undrop-for-innodb#readme)
+
 [淘宝数据库内核组博客](http://mysql.taobao.org/monthly/2017/11/01/)
 
 [工具作者分析innodb系统表](https://twindb.com/innodb-dictionary/)
