@@ -287,4 +287,4 @@ LOAD DATA LOCAL INFILE '/opt/undrop-for-innodb-develop/dumps/default/test' REPLA
 
 [工具作者分析innodb系统表](https://twindb.com/innodb-dictionary/)
 
-[其他](https://wx3.sinaimg.cn/mw690/733db945ly1fxdoc3aus3j212d0twnca.jpg/)
+[其他](https://weibo.com/1933424965/H3qIu0JYo?from=page_1005051933424965_profile&wvr=6&mod=weibotime&type=comment#_rnd1627969209228)
