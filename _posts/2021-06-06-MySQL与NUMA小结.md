@@ -176,6 +176,8 @@ done
 同上，使用top -Hp命令，选中P       = Last Used Cpu (SMP)
 $ top -Hp 2556
 将得到的P值写入文本文件，uniq sort一下就得到了目前进程使用的CPU编号
+或者
+pidstat -p pid -t 1
 ```
 
 ![7](https://i.postimg.cc/y8RtyP9f/7.png)
