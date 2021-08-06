@@ -204,7 +204,7 @@ $ top -Hp 2556
 
 [十年后数据库还是不敢拥抱NUMA?](https://zhuanlan.zhihu.com/p/387117470)
 
-[技术分享 | 浅谈 NUMA 与 MySQL](https://zhuanlan.zhihu.com/p/366997634)
+[浅谈 NUMA 与 MySQL](https://zhuanlan.zhihu.com/p/366997634)
 
 [NUMA架构与数据库的一些思考](https://www.modb.pro/db/28677)
 
